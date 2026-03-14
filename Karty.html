@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karty Charakterystyki 2026</title>
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --line-color: #0078d4;
+            --text-color: #323130;
+            --bg-hover: #f3f2f1;
+            --pdf-red: #d13438;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 15px;
+        }
+
+        /* Kontener główny - szerokość mobilna, wyśrodkowany */
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Wyszukiwarka */
+        .search-box {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-box:focus {
+            border-color: var(--primary-color);
+        }
+
+        .tree-container {
+            position: relative;
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        /* Główna pionowa linia prowadząca */
+        .tree-container::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--line-color);
+            opacity: 0.3;
+        }
+
+        .category-item {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        /* Nagłówek sekcji (np. OLEJE) */
+        .category-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 10px 10px 25px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            transition: 0.2s;
+            user-select: none;
+        }
+        .category-header:hover {
+            background: var(--bg-hover);
+        }
+
+        /* Poziome odgałęzienie od linii pionowej */
+        .category-header::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            width: 12px;
+            height: 1px;
+            background: var(--line-color);
+        }
+
+        .arrow {
+            margin-right: 8px;
+            font-size: 10px;
+            transition: transform 0.3s;
+            color: var(--primary-color);
+        }
+        .active .arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Podmenu - schodkowe wcięcie */
+        .submenu {
+            display: none;
+            list-style: none;
+            padding-left: 30px;
+            border-left: 1px solid #ddd;
+            margin-left: 8px;
+            margin-top: 4px;
+        }
+
+        .active + .submenu {
+            display: block;
+        }
+
+        /* Link do pliku */
+        .file-item {
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 13px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .file-item:hover {
+            background: #f0f7ff;
+            color: var(--primary-color);
+        }
+
+        .pdf-tag {
+            font-size: 8px;
+            background: var(--pdf-red);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .hidden { display: none !important; }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <input type="text" id="search" class="search-box" placeholder="Szukaj karty charakterystyki...">
+
+        <ul class="tree-container">
+            <li class="category-item">
+                <div class="category-header" onclick="toggle(this)">
+                    <span class="arrow">▶</span> OLEJE
+                </div>
+                <ul class="submenu">
+                    <li>
+                        <a href="https://enprom365.sharepoint.com/:b:/s/M365_Ochronarodowiska/IQCXywoAOeSTSpSZPPUdtE7LAZ-5RxEVkcpaSo2hIEZu8iU?e=P7M3jL" 
+                           target="_blank" class="file-item">
+                            <span class="pdf-tag">PDF</span> BASE OIL SN 600
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://enprom365.sharepoint.com/:b:/s/M365_Ochronarodowiska/IQAkuT3PIebERJqxqZaBgMAwAZSWfYQKqdbbfdGSMLqkUcM?e=8pLcl2" 
+                           target="_blank" class="file-item">
+                            <span class="pdf-tag">PDF</span> OLEJ NAPĘDOWY ORLEN
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://enprom365.sharepoint.com/:b:/s/M365_Ochronarodowiska/IQD8oJGhqQ94R6PC6KqHgPEHAQjeCbn487QUoHsRIoHsl3c?e=UG3Sml" 
+                           target="_blank" class="file-item">
+                            <span class="pdf-tag">PDF</span> NOWA KARTA (Link 3)
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="category-item">
+                <div class="category-header" onclick="toggle(this)">
+                    <span class="arrow">▶</span> SMARY
+                </div>
+                <ul class="submenu">
+                    <li><a href="#" class="file-item"><span class="pdf-tag">PDF</span> Przykładowy Smar</a></li>
+                </ul>
+            </li>
+
+            <li class="category-item">
+                <div class="category-header" onclick="toggle(this)">
+                    <span class="arrow">▶</span> KLEJE
+                </div>
+                <ul class="submenu">
+                    <li><a href="#" class="file-item"><span class="pdf-tag">PDF</span> Przykładowy Klej</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="footer">
+            System Kart Charakterystyki Enprom 2026
+        </div>
+    </div>
+
+    <script>
+        function toggle(el) {
+            el.classList.toggle('active');
+        }
+
+        document.getElementById('search').addEventListener('input', function(e) {
+            let filter = e.target.value.toLowerCase();
+            let categories = document.querySelectorAll('.category-item');
+
+            categories.forEach(cat => {
+                let items = cat.querySelectorAll('.file-item');
+                let hasVisibleFiles = false;
+
+                items.forEach(item => {
+                    if (item.textContent.toLowerCase().includes(filter)) {
+                        item.classList.remove('hidden');
+                        hasVisibleFiles = true;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                if (filter.length > 0) {
+                    if (hasVisibleFiles) {
+                        cat.classList.remove('hidden');
+                        cat.querySelector('.category-header').classList.add('active');
+                    } else {
+                        cat.classList.add('hidden');
+                    }
+                } else {
+                    cat.classList.remove('hidden');
+                    cat.querySelector('.category-header').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

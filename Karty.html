@@ -3,256 +3,810 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karty Charakterystyki 2026</title>
+    <title>Strategia RM SYS: Lutkówka II - System Operacyjny</title>
     <style>
         :root {
-            --primary-color: #0078d4;
-            --line-color: #0078d4;
-            --text-color: #323130;
-            --bg-hover: #f3f2f1;
-            --pdf-red: #d13438;
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --border-color: #000000;
+            --accent-bg: #f8f9fa;
+            --success-color: #1b4d3e;
+            --danger-color: #c1121f;
+            --blue-color: #003049;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
+            font-family: "Century Gothic", AppleGothic, "Avant Garde", Avantgarde, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
             padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Kontener główny - szerokość mobilna, wyśrodkowany */
-        .app-container {
+        header {
             width: 100%;
-            max-width: 400px;
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 820px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
         }
 
-        /* Wyszukiwarka */
-        .search-box {
+        h1 { font-size: 1.3rem; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { font-size: 0.9rem; margin: 8px 0 0 0; font-weight: normal; color: #444; }
+
+        .table-of-contents {
             width: 100%;
-            box-sizing: border-box;
+            max-width: 820px;
+            border: 2px solid var(--border-color);
             padding: 12px;
             margin-bottom: 20px;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
+            box-sizing: border-box;
+            background-color: var(--accent-bg);
+            box-shadow: 3px 3px 0px #000;
         }
-        .search-box:focus {
-            border-color: var(--primary-color);
-        }
-
-        .tree-container {
-            position: relative;
-            list-style: none;
-            padding-left: 0;
-            margin: 0;
-        }
-
-        /* Główna pionowa linia prowadząca */
-        .tree-container::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: var(--line-color);
-            opacity: 0.3;
-        }
-
-        .category-item {
-            margin-bottom: 8px;
-            position: relative;
-        }
-
-        /* Nagłówek sekcji (np. OLEJE) */
-        .category-header {
+        .table-of-contents h3 { margin: 0 0 10px 0; font-size: 0.85rem; text-transform: uppercase; border-bottom: 1px solid #000; padding-bottom: 3px; }
+        .toc-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 6px; }
+        @media(min-width: 600px) { .toc-list { grid-template-columns: 1fr 1fr; gap: 6px; } }
+        .toc-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 10px 10px 10px 25px;
+            padding: 6px 10px;
+            border: 1.5px solid #000;
+            background: #fff;
             cursor: pointer;
-            font-weight: 700;
-            font-size: 14px;
-            background: #f9f9f9;
-            border-radius: 6px;
-            transition: 0.2s;
-            user-select: none;
-        }
-        .category-header:hover {
-            background: var(--bg-hover);
-        }
-
-        /* Poziome odgałęzienie od linii pionowej */
-        .category-header::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 50%;
-            width: 12px;
-            height: 1px;
-            background: var(--line-color);
-        }
-
-        .arrow {
-            margin-right: 8px;
-            font-size: 10px;
-            transition: transform 0.3s;
-            color: var(--primary-color);
-        }
-        .active .arrow {
-            transform: rotate(90deg);
-        }
-
-        /* Podmenu - schodkowe wcięcie */
-        .submenu {
-            display: none;
-            list-style: none;
-            padding-left: 30px;
-            border-left: 1px solid #ddd;
-            margin-left: 8px;
-            margin-top: 4px;
-        }
-
-        .active + .submenu {
-            display: block;
-        }
-
-        /* Link do pliku */
-        .file-item {
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--text-color);
-            font-size: 13px;
+            font-size: 0.78rem;
+            box-shadow: 1px 1px 0px #000;
             border-radius: 4px;
-            transition: background 0.2s;
         }
-        .file-item:hover {
-            background: #f0f7ff;
-            color: var(--primary-color);
+        .toc-item:hover { background: #eee; transform: translate(-0.5px, -0.5px); box-shadow: 1.5px 1.5px 0px #000; }
+        .toc-item.done { text-decoration: line-through; color: #555; background: #e9ecef; font-style: italic; }
+
+        .flashcard-container {
+            width: 100%;
+            max-width: 820px;
+            perspective: 1000px;
+            margin-bottom: 20px;
         }
 
-        .pdf-tag {
-            font-size: 8px;
-            background: var(--pdf-red);
-            color: white;
-            padding: 2px 5px;
-            border-radius: 3px;
-            margin-right: 10px;
+        .flashcard {
+            width: 100%;
+            min-height: 880px;
+            border: 2px solid var(--border-color);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease;
+            cursor: pointer;
+            box-sizing: border-box;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 22px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--bg-color);
+            overflow-y: auto;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: var(--accent-bg);
+        }
+
+        .card-header {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 6px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
             font-weight: bold;
         }
 
-        .hidden { display: none !important; }
-
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 11px;
-            color: #999;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
+        .card-content {
+            font-size: 0.88rem;
+            line-height: 1.5;
+            flex-grow: 1;
         }
+        .card-content ul { padding-left: 18px; margin: 8px 0; }
+        .card-content li { margin-bottom: 5px; }
+        .card-content code { background: #e8e8e8; padding: 2px 4px; font-size: 0.82rem; color: #c1121f; font-weight: bold; border-radius: 3px; font-family: monospace; }
+
+        .card-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.78rem;
+            background: #fff;
+        }
+        .card-table th, .card-table td {
+            border: 1.5px solid #000;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        .card-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+        .card-table input[type="text"], .card-table input[type="number"] {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #000;
+            padding: 4px;
+            font-family: inherit;
+            font-size: 0.78rem;
+        }
+
+        .btn-add-item {
+            background: #fff;
+            border: 1.5px solid #000;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 1px 1px 0px #000;
+            border-radius: 3px;
+            margin-top: 5px;
+            font-family: inherit;
+        }
+        .btn-add-item:active { transform: translate(0.5px, 0.5px); box-shadow: 0.5px 0.5px 0px #000; }
+        
+        .btn-delete-item {
+            background: #fff;
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+            padding: 2px 5px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: inherit;
+        }
+
+        .total-cost-badge {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 10px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 10px;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .card-footer {
+            font-size: 0.72rem;
+            text-align: center;
+            margin-top: 12px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 6px;
+            font-style: italic;
+            color: #555;
+        }
+
+        .notes-section {
+            margin-top: 12px;
+            border-top: 1px solid #000;
+            padding-top: 6px;
+            width: 100%;
+        }
+        .notes-section label {
+            font-size: 0.72rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .notes-section textarea {
+            width: 100%;
+            height: 40px;
+            box-sizing: border-box;
+            border: 1px solid var(--border-color);
+            font-family: inherit;
+            font-size: 0.8rem;
+            padding: 4px;
+            resize: vertical;
+            background: #fff;
+        }
+
+        /* Akordeon i Boksy Dokumentowe w Fiszce 3 */
+        .flow-container { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 8px 0; }
+        .flow-step { width: 100%; border: 2px solid #000; background: #fff; padding: 12px 16px; font-size: 0.76rem; border-radius: 4px; box-shadow: 2px 2px 0px #000; box-sizing: border-box; }
+        .flow-step.clickable-step { cursor: pointer; }
+        .flow-step.clickable-step:hover { background: #f1f3f5; border-color: var(--blue-color); }
+        .flow-step strong { display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; font-size: 0.78rem; color: var(--blue-color); border-bottom: 1px solid #eee; padding-bottom: 4px; }
+        .flow-step strong::after { content: "▼ Rozwiń instrukcję i wykaz dokumentów"; font-size: 0.65rem; color: #007bff; font-weight: normal; text-transform: none; }
+        .flow-step.active-step strong::after { content: "▲ Zwiń sekcję"; color: var(--danger-color); }
+        
+        .flow-details { display: none; margin-top: 10px; padding: 10px; background: #fafafa; border-left: 4px solid var(--blue-color); font-size: 0.76rem; color: #111; border-top: 1px solid #eee; }
+        .flow-details h4 { margin: 10px 0 4px 0; font-size: 0.75rem; text-transform: uppercase; color: #333; }
+        
+        /* Styl dedykowanego kwadratu/boksu na dokumenty */
+        .document-box {
+            background-color: #fff;
+            border: 1.5px solid #000;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 3px;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+        .document-box-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            color: #1b4d3e;
+            border-bottom: 1px solid #1b4d3e;
+            padding-bottom: 2px;
+            margin-bottom: 6px;
+        }
+
+        .flow-details ul { padding-left: 16px; margin: 4px 0; }
+        .flow-details li { margin-bottom: 4px; }
+        .flow-step em { display: inline-block; margin-top: 6px; font-size: 0.72rem; color: var(--danger-color); font-weight: bold; background: #fff; border: 1px dashed #ccc; padding: 2px 5px; border-radius: 3px; width: fit-content; }
+        .flow-arrow { font-size: 1rem; font-weight: bold; line-height: 1; margin: 1px 0; color: #000; }
+
+        /* Kalkulator Box */
+        .calculator-box { background: #fff; border: 2px solid #000; padding: 10px; margin-top: 6px; border-radius: 4px; box-shadow: 2px 2px 0px #000; }
+        .calc-group-title { font-size: 0.78rem; text-transform: uppercase; font-weight: bold; margin-bottom: 6px; border-bottom: 1px solid #000; padding-bottom: 2px; }
+        .calc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 0.8rem; }
+        .calc-row input, .calc-row select { width: 110px; padding: 3px; border: 1px solid #000; text-align: right; font-weight: bold; font-family: inherit; font-size: 0.8rem; }
+        .calc-output-section { margin-top: 8px; padding-top: 6px; border-top: 2px dashed #000; }
+        .calc-result { font-size: 0.82rem; font-weight: bold; margin-bottom: 2px; }
+        .status-badge { display: inline-block; padding: 2px 5px; border-radius: 3px; color: #fff; font-size: 0.72rem; text-transform: uppercase; font-weight: bold; }
+        .status-ok { background-color: #1b4d3e; }
+        .status-error { background-color: var(--danger-color); }
+
+        .controls { width: 100%; max-width: 780px; display: flex; justify-content: space-between; gap: 10px; }
+        button { flex: 1; background-color: var(--bg-color); color: var(--text-color); border: 2px solid var(--border-color); padding: 12px; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; font-weight: bold; box-shadow: 2px 2px 0px #000; touch-action: manipulation; font-family: inherit; }
+        button:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+        button.btn-status { background-color: var(--accent-bg); }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <input type="text" id="search" class="search-box" placeholder="Szukaj karty charakterystyki...">
+    <header>
+        <h1>RM SYS (Grupa ENPROM) - System Lutkówka II</h1>
+        <h2>Skonsolidowany Obieg Dokumentów, Kosztów i Kalkulatorów Masowych</h2>
+    </header>
 
-        <ul class="tree-container">
-            <li class="category-item">
-                <div class="category-header" onclick="toggle(this)">
-                    <span class="arrow">▶</span> OLEJE
+    <div class="table-of-contents">
+        <h3>Spis Treści i Postęp Postępowania</h3>
+        <ul class="toc-list" id="tocList"></ul>
+    </div>
+
+    <div class="flashcard-container">
+        <div class="flashcard" id="card" onclick="flipCard()">
+            <div class="card-face card-front">
+                <div>
+                    <div class="card-header">
+                        <span id="cardIdView">Fiszka 1/6</span>
+                        <span>ANALIZA PROCESU / PARAMETR</span>
+                    </div>
+                    <div class="card-content" id="cardFrontContent"></div>
                 </div>
-                <ul class="submenu">
-                    <li>
-                        <a href="https://enprom365.sharepoint.com/:b:/s/M365_Ochronarodowiska/IQCXywoAOeSTSpSZPPUdtE7LAZ-5RxEVkcpaSo2hIEZu8iU?e=P7M3jL" 
-                           target="_blank" class="file-item">
-                            <span class="pdf-tag">PDF</span> BASE OIL SN 600
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://enprom365.sharepoint.com/:b:/s/M365_Ochronarodowiska/IQAkuT3PIebERJqxqZaBgMAwAZSWfYQKqdbbfdGSMLqkUcM?e=8pLcl2" 
-                           target="_blank" class="file-item">
-                            <span class="pdf-tag">PDF</span> OLEJ NAPĘDOWY ORLEN
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://enprom365.sharepoint.com/:b:/s/M365_Ochronarodowiska/IQD8oJGhqQ94R6PC6KqHgPEHAQjeCbn487QUoHsRIoHsl3c?e=UG3Sml" 
-                           target="_blank" class="file-item">
-                            <span class="pdf-tag">PDF</span> NOWA KARTA (Link 3)
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="category-item">
-                <div class="category-header" onclick="toggle(this)">
-                    <span class="arrow">▶</span> SMARY
+                <div class="card-footer">Kliknij w obszar fiszki, aby odsłonić kompletną regulację prawną</div>
+            </div>
+            <div class="card-face card-back">
+                <div>
+                    <div class="card-header">
+                        <span id="cardIdViewBack">Fiszka 1/6</span>
+                        <span>REGULACJA USTAWOWA / SYSTEM ROZWIĄZAŃ</span>
+                    </div>
+                    <div class="card-content" id="cardBackContent"></div>
+                    
+                    <div class="notes-section" onclick="event.stopPropagation();">
+                        <label for="userNotes">Dedykowane uwagi biznesowe dla tej sekcji:</label>
+                        <textarea id="userNotes" placeholder="Wpisz wytyczne, numery działek lub wnioski..." oninput="saveNote()"></textarea>
+                    </div>
                 </div>
-                <ul class="submenu">
-                    <li><a href="#" class="file-item"><span class="pdf-tag">PDF</span> Przykładowy Smar</a></li>
-                </ul>
-            </li>
-
-            <li class="category-item">
-                <div class="category-header" onclick="toggle(this)">
-                    <span class="arrow">▶</span> KLEJE
-                </div>
-                <ul class="submenu">
-                    <li><a href="#" class="file-item"><span class="pdf-tag">PDF</span> Przykładowy Klej</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <div class="footer">
-            System Kart Charakterystyki Enprom 2026
+                <div class="card-footer">Kliknij w obszar fiszki, aby obrócić z powrotem</div>
+            </div>
         </div>
     </div>
 
+    <div class="controls">
+        <button onclick="prevCard(event)">Poprzednia</button>
+        <button class="btn-status" onclick="toggleStatus(event)" id="statusBtn">Opanowane</button>
+        <button onclick="nextCard(event)">Następna</button>
+    </div>
+
     <script>
-        function toggle(el) {
-            el.classList.toggle('active');
+        const flashcardsData = [
+            {
+                title: "1. Metadane, Powierzchnia (0,5 ha) i Pełna Analiza Ryzyka Prawnego",
+                front: "<strong>Kompleksowe dane wejściowe, analiza środowiskowa i skrócone rygory karne:</strong><br><br>Jak wygląda struktura podmiotowa w Lutkówce II, jak zintegrować zbieranie z przetwarzaniem i jakie rygory podmiotowe (KRK, odmowy, kary WIOŚ) determinują sukces wniosku?",
+                back: "<ul>" +
+                      "<li><strong>Metadane i Teren:</strong> Wnioskodawcą jest <u>RM SYS Sp. z o.o.</u> [cite: 796] (Grupa ENPROM). Właścicielem gruntów przyległych jest <u>ENPROM Sp. z o.o.</u> [cite: 796] Procedura obejmuje plac o wielkości <strong>ok. 0,5 ha (5000 m²)</strong> zlokalizowany w Lutkówce Drugiej (gmina Mszczonów)[cite: 796]. Cel: rozbudowa aktywnej decyzji na przetwarzanie o funkcję zbierania odpadów palnych i metalowych[cite: 758].</li>" +
+                      "<li><strong>Analiza Przeniesienia (art. 151 u.o.):</strong> Przeniesienie geograficzne starej decyzji na sąsiednią działkę jest **niemożliwe**[cite: 753, 796]. Ustawa wiąże decyzję z konkretną działką[cite: 753, 796]. Sukcesja z art. 151 służy wyłącznie zmianie podmiotu na tym samym terenie[cite: 2098]. Prawidłowa ścieżka to złożenie wniosku o zmianę/rozszerzenie granic posiadanej decyzji[cite: 758].</li>" +
+                      "<li><strong>Zbieżność Środowiskowa i KIP:</strong> Wykorzystujemy procedurę Karty Informacyjnej Przedsięwzięcia (KIP) u Burmistrza Mszczonowa w celu wydania nowej decyzji DUŚ na zbieranie odpadów palnych obok przetwarzania[cite: 754, 761, 853]. Powołujemy się na poprzedni raport OOŚ, który wprost sankcjonował te kody, by uzyskać odstąpienie od ponownego, pełnego raportu[cite: 853].</li>" +
+                      "<li><strong>Zaświadczenia karne i oświadczenia (art. 42 ust. 3a i 3b):</strong> Do wniosku bezwzględnie dołączamy aktualne **zaświadczenia o niekaralności z KRK** za przestępstwa przeciwko środowisku dla samej spółki oraz wszystkich członków zarządu i prokurentów[cite: 834]. Składane oświadczenia o braku cofniętych decyzji odpadowych w ostatnich 10 latach muszą zawierać klauzulę karną: <i>„Jestem świadomy odpowiedzialności karnej...”</i>[cite: 841, 846, 847].</li>" +
+                      "<li><strong>Bezwzględne Kryteria Odmowy (art. 46):</strong> Starosta wyda odmowę, jeśli w ciągu ostatnich 10 lat członkowi zarządu cofnięto analogiczne zezwolenie odpadowe lub nałożono 3-krotnie kary administracyjne przekraczające łącznie 150 tys. zł, a także gdy obiekt nie przejdzie pomyślnie instalacyjnej kontroli WIOŚ/PSP[cite: 780, 944, 945, 958].</li>" +
+                      "<li><strong>Sankcje i Rygory Finansowe (art. 194):</strong> Prowadzenie zbierania bez decyzji lub niezgodnie z nią podlega administracyjnej karze pieniężnej od WIOŚ w wysokości **od 1000 zł do 1 000 000 zł**[cite: 2305, 2306]. Uchybienia w szczelności podłoża strefy 0,5 ha skutkują **natychmiastowym wstrzymaniem działalności** placu[cite: 602, 607, 2286].</li>" +
+                      "</ul>"
+            },
+            {
+                title: "2. Rozbudowany Wykaz i Klasyfikacja Kodów Odpadów",
+                front: "<strong>Identyfikacja pełnego strumienia masowego pod zbieranie:</strong><br><br>Jakie kody odpadów zostaną uwzględnione we wniosku integracyjnym i jak powiązać je z wcześniejszymi ustaleniami środowiskowymi?",
+                back: "<p><strong>Zbieżność środowiskowa:</strong> Poprzedni (istniejący) raport OOŚ wprost sankcjonuje i opisuje oddziaływanie dla kodów zbieranych. Poniższa tabela zawiera oficjalną klasyfikację ustawową[cite: 238]:</p>" +
+                      "<table class='card-table'>" +
+                      "  <tr><th>Kod Odpadu</th><th>Ustawowa Nazwa Frakcji i Specyfika Środowiskowa</th></tr>" +
+                      "  <tr><td><code>17 01 01</code></td><td>Odpady betonu oraz gruz betonowy z rozbiórek i remontów (Frakcja obojętna) [cite: 123]</td></tr>" +
+                      "  <tr><td><code>17 04 07</code></td><td>Mieszaniny metali (Złom poprodukcyjny i instalacyjny) [cite: 2743]</td></tr>" +
+                      "  <tr><td><code>17 04 11</code></td><td>Kable inne niż wymienione w 17 04 10 (Otuliny tworzywowe - <strong>odpad palny</strong>) [cite: 474]</td></tr>" +
+                      "  <tr><td><code>16 02 13*</code></td><td>Zużyte urządzenia zawierające niebezpieczne elementy (WEEE niebezpieczne - wymagany szczelny nadzór) [cite: 62, 230]</td></tr>" +
+                      "  <tr><td><code>16 02 14</code></td><td>Zużyte urządzenia inne niż wymienione w 16 02 09 do 16 02 12 (WEEE standardowe) [cite: 62]</td></tr>" +
+                      "</table>" +
+                      "<p style='font-size:0.78rem;'><i>Rygor technologiczny: Frakcje 17 04 11 oraz 16 02 13* jako odpady zawierające polimery/plastiki podlegają pod restrykcyjne przepisy PPOŻ i obowiązek wyliczenia jednorazowej masy magazynowej[cite: 474, 999].</i></p>"
+            },
+            {
+                title: "3. Praktyczny Algorytm Postępowania i Wykaz Dokumentów",
+                front: "<strong>Praktyczny przewodnik krok po kroku z boksami dokumentów:</strong><br><br>Co dokładnie musisz robić po kolei, jak wykorzystać stary raport OOŚ oraz jakie pełne spisy dokumentów (w boksach) musisz dołączyć do wniosków w Mszczonowie i Żyrardowie?",
+                back: "<strong>PRAKTYCZNA INSTRUKCJA I ZAŁĄCZNIKI (Kliknij wybrany etap):</strong><br>" +
+                      "<div class='flow-container'>" +
+                      "  <div class='flow-step clickable-step' onclick='toggleFlowDetails(0, event)'>" +
+                      "    <strong>1. Przygotowanie Aktu Notarialnego (Art. 41b)</strong>" +
+                      "    <div class='flow-details' id='fd-0'>" +
+                      "      <h4>Działanie praktyczne:</h4>" +
+                      "      <ul>" +
+                      "        <li>Przekaż notariuszowi wykaz 5 kodów odpadów oraz Wasze założenia masowe roczne.</li>" +
+                      "        <li>Dopilnuj, aby w umowie dzierżawy znalazło się precyzyjne oświadczenie o odpowiedzialności solidarnej z art. 12 ustawy szkodowej.</li>" +
+                      "      </ul>" +
+                      "      <div class='document-box'>" +
+                      "        <div class='document-box-title'>[ OBLIGATORYJNE DOKUMENTY I RAPORTY ]</div>" +
+                      "        <ul>" +
+                      "          <li>Kopia wypisu z księgi wieczystej nieruchomości gruntowej.</li>" +
+                      "          <li>**Oryginalny wypis Aktu Notarialnego umowy dzierżawy / użyczenia gruntu** (art. 41b ust. 3).</li>" +
+                      "          <li>Oświadczenie właściciela nieruchomości o wyrażeniu zgody na ustanowienie strefy (art. 41b ust. 2).</li>" +
+                      "        </ul>" +
+                      "      </div>" +
+                      "    </div>" +
+                      "    <em>Czas realizacji: 1 - 2 tygodnie</em>" +
+                      "  </div>" +
+                      "  <div class='flow-arrow'>↓</div>" +
+                      "  <div class='flow-step clickable-step' onclick='toggleFlowDetails(1, event)'>" +
+                      "    <strong>2. Procedura Środowiskowa i Wykorzystanie OOŚ (Mszczonów)</strong>" +
+                      "    <div class='flow-details' id='fd-1'>" +
+                      "      <h4>Działanie praktyczne i wykorzystanie starego OOŚ:</h4>" +
+                      "      <ul>" +
+                      "        <li>Składasz wniosek do Burmistrza Mszczonowa. **Nie piszesz nowej karty od zera!**</li>" +
+                      "        <li>W nowej KIP załączasz jako aneks **Wasz poprzedni raport OOŚ na przetwarzanie**. W treści KIP dowodzisz, że zbieranie tych samych kodów na sąsiedniej działce (to samo miejsce) nie zwiększa skumulowanego oddziaływania.</li>" +
+                      "        <li>Burmistrz na tej podstawie wydaje DUŚ bez konieczności robienia nowego, pełnego raportu.</li>" +
+                      "      </ul>" +
+                      "      <div class='document-box'>" +
+                      "        <div class='document-box-title'>[ OBLIGATORYJNE DOKUMENTY I RAPORTY ]</div>" +
+                      "        <ul>" +
+                      "          <li>**Oficjalny wniosek o wydanie/zmianę Decyzji o Środowiskowych Uwarunkowaniach (DUŚ)**.</li>" +
+                      "          <li>**Karta Informacyjna Przedsięwzięcia (KIP)** zintegrowana ze starym raportem OOŚ[cite: 853].</li>" +
+                      "          <li>Mapa ewidencyjna w skali 1:500 lub 1:1000 ze strefą inwestycji.</li>" +
+                      "          <li>Wypis z rejestru gruntów dla działki głównej oraz działek sąsiednich w promieniu 100m.</li>" +
+                      "        </ul>" +
+                      "      </div>" +
+                      "    </div>" +
+                      "    <em>Czas realizacji: 2 - 4 miesiące</em>" +
+                      "  </div>" +
+                      "  <div class='flow-arrow'>↓</div>" +
+                      "  <div class='flow-step clickable-step' onclick='toggleFlowDetails(2, event)'>" +
+                      "    <strong>3. Pobranie Wypisu MPZP / Uzyskanie WZ</strong>" +
+                      "    <div class='flow-details' id='fd-2'>" +
+                      "      <h4>Działanie praktyczne:</h4>" +
+                      "      <ul>" +
+                      "        <li>Idziesz do Wydziału Architektury w Mszczonowie i składasz wniosek o wypis z planu.</li>" +
+                      "        <li>Jeśli brak MPZP, składasz wniosek o WZ na rozbudowę strefy gospodarki odpadami.</li>" +
+                      "      </ul>" +
+                      "      <div class='document-box'>" +
+                      "        <div class='document-box-title'>[ OBLIGATORYJNE DOKUMENTY I RAPORTY ]</div>" +
+                      "        <ul>" +
+                      "          <li>**Oryginalny wypis i wyrys z Miejscowego Planu Zagospodarowania Przestrzennego (MPZP)**.</li>" +
+                      "          <li>W przypadku braku planu: **Ostateczna Decyzja o Warunkach Zabudowy (WZ)**[cite: 850].</li>" +
+                      "          <li>Dowód wniesienia opłaty skarbowej za wypis/decyzję WZ.</li>" +
+                      "        </ul>" +
+                      "      </div>" +
+                      "    </div>" +
+                      "    <em>Czas realizacji: 1 - 3 miesiące</em>" +
+                      "  </div>" +
+                      "  <div class='flow-arrow'>↓</div>" +
+                      "  <div class='flow-step clickable-step' onclick='toggleFlowDetails(3, event)'>" +
+                      "    <strong>4. Opracowanie Operatu PPOŻ i Postanowienie PSP</strong>" +
+                      "    <div class='flow-details' id='fd-3'>" +
+                      "      <h4>Działanie praktyczne:</h4>" +
+                      "      <ul>" +
+                      "        <li>Rzeczoznawca ds. PPOŻ na podstawie map placu 0,5 ha wylicza gęstość obciążenia ogniowego dla kabli i WEEE i nanosi punkty pgaśnicze.</li>" +
+                      "        <li>Składasz wniosek o uzgodnienie warunków do Komendanta w Żyrardowie.</li>" +
+                      "      </ul>" +
+                      "      <div class='document-box'>" +
+                      "        <div class='document-box-title'>[ OBLIGATORYJNE DOKUMENTY I RAPORTY ]</div>" +
+                      "        <ul>" +
+                      "          <li>**Pełny Operat Przeciwpożarowy** (z podpisem i pieczęcią certyfikowanego rzeczoznawcy)[cite: 858].</li>" +
+                      "          <li>Rysunki techniczne stref pożarowych placu, boksów magazynowych oraz dróg manewrowych.</li>" +
+                      "          <li>**Wniosek do Komendanta Powiatowego PSP o uzgodnienie warunków ochrony**.</li>" +
+                      "          <li>Finał etapu: **Postanowienie KP PSP Żyrardów aprobujące operat**[cite: 861, 862].</li>" +
+                      "        </ul>" +
+                      "      </div>" +
+                      "    </div>" +
+                      "    <em>Czas realizacji: 1 - 2 miesiące</em>" +
+                      "  </div>" +
+                      "  <div class='flow-arrow'>↓</div>" +
+                      "  <div class='flow-step clickable-step' onclick='toggleFlowDetails(4, event)'>" +
+                      "    <strong>5. Wniosek o Postanowienie i Wniesienie Roszczeń</strong>" +
+                      "    <div class='flow-details' id='fd-4'>" +
+                      "      <h4>Działanie praktyczne:</h4>" +
+                      "      <ul>" +
+                      "        <li>Składasz wniosek do Starostwa o wyliczenie kwoty. Po wydaniu postanowienia przez Starostę kupujesz polisę/gwarancję w banku lub ubezpieczalni.</li>" +
+                      "      </ul>" +
+                      "      <div class='document-box'>" +
+                      "        <div class='document-box-title'>[ OBLIGATORYJNE DOKUMENTY I RAPORTY ]</div>" +
+                      "        <ul>" +
+                      "          <li>Wniosek o wydanie postanowienia określającego wysokość zabezpieczenia roszczeń[cite: 1009].</li>" +
+                      "          <li>**Postanowienie Starosty Żyrardowskiego ustalające kwotę roszczeń**[cite: 1009].</li>" +
+                      "          <li>**Oryginał dokumentu finansowego:** Gwarancja bankowa, ubezpieczeniowa lub dowód wpłaty depozytu[cite: 1004, 1014].</li>" +
+                      "        </ul>" +
+                      "      </div>" +
+                      "    </div>" +
+                      "    <em>Czas realizacji: 2 - 3 tygodnie</em>" +
+                      "  </div>" +
+                      "  <div class='flow-arrow'>↓</div>" +
+                      "  <div class='flow-step clickable-step' onclick='toggleFlowDetails(5, event)'>" +
+                      "    <strong>6. Złożenie Kompletnego Wniosku Głównego (Starostwo Żyrardów)</strong>" +
+                      "    <div class='flow-details' id='fd-5'>" +
+                      "      <h4>Działanie praktyczne (Finał):</h4>" +
+                      "      <ul>" +
+                      "        <li>Składasz w kancelarii Starostwa pełną teczkę dokumentów wraz z opłatami. Czekasz na wyznaczenie terminu kontroli WIOŚ i PSP na placu.</li>" +
+                      "      </ul>" +
+                      "      <div class='document-box'>" +
+                      "        <div class='document-box-title'>[ OBLIGATORYJNE DOKUMENTY I RAPORTY ]</div>" +
+                      "        <ul>" +
+                      "          <li>**Oficjalny wniosek główny o zmianę/rozszerzenie decyzji odpadowej**[cite: 803].</li>" +
+                      "          <li>**Zaświadczenia o niekaralności z KRK** (osobno dla RM SYS oraz wszystkich członków zarządu)[cite: 834].</li>" +
+                      "          <li>Podpisane oświadczenia o niekaralności i braku cofniętych decyzji z **ustawową klauzulą karną**[cite: 841, 847].</li>" +
+                      "          <li>Oryginały wszystkich dokumentów z poprzednich kroków (Akt Notarialny, DUŚ, MPZP, Gwarancja, Operat)[cite: 773, 832, 850, 853, 856].</li>" +
+                      "          <li>Mapy ewidencyjne i rysunki techniczne miejsc magazynowania i separatorów.</li>" +
+                      "          <li>**Dowód opłaty skarbowej za decyzję zmieniającą** (Urząd Miasta Żyrardów).</li>" +
+                      "          <li>Dowody opłat skarbowych za ewentualne pełnomocnictwa ($17\text{ zł}$ od sztuki).</li>" +
+                      "        </ul>" +
+                      "      </div>" +
+                      "    </div>" +
+                      "    <em>Czas realizacji: 2 - 3 miesiące (Do wydania decyzji)</em>" +
+                      "  </div>" +
+                      "</div>"
+            },
+            {
+                title: "4. Dynamicczna Struktura Kosztów Inwestycji (+)",
+                front: "<strong>Budżetowanie nakładów dla strefy magazynowej 0,5 ha:</strong><br><br>Otwórz tę fiszkę, aby zarządzać kosztami operacyjnymi. Możesz swobodnie dodawać własne pozycje za pomocą przycisku z plusem (+), a system automatycznie obliczy sumę ogólną.",
+                back: "<p>Wprowadź wartości kosztów. Wszystkie dane, w tym nowo dodane pozycje, zapisują się automatycznie w Twojej przeglądarce:</p>" +
+                      "<div onclick='event.stopPropagation();'>" +
+                      "  <table class='card-table' id='dynamicCostsTable'>" +
+                      "    <thead>" +
+                      "      <tr><th>Infrastruktura / Wymóg Formalny</th><th>Koszt [zł]</th><th>Akcja</th></tr>" +
+                      "    </thead>" +
+                      "    <tbody id='costsTableBody'></tbody>" +
+                      "  </table>" +
+                      "  <button class='btn-add-cost' onclick='addNewCostRow()'>+ Dodaj nową pozycję kosztową</button>" +
+                      "  <div class='total-cost-badge' id='totalCostDisplay'>Suma ogólna nakładów: 0 zł</div>" +
+                      "</div>"
+            },
+            {
+                title: "5. Wymogi Techniczne i Środowiskowe Miejsca Magazynowania",
+                front: "<strong>Inżynieria techniczna placu magazynowego:</strong><br><br>Jakie są bezwzględne kryteria techniczne dla magazynowania kabli, złomu i zużytego sprzętu elektrotechnicznego (monitoring, separatory, moc)?",
+                back: "<ul>" +
+                      "<li><strong>Wizyjny monitoring stały (Całodobowy):</strong> Zgodnie z art. 25 ust. 6a u.o. system kamer musi rejestrować obraz całego placu (0,5 ha) i magazynowanych odpadów palnych (kody 17 04 11, 16 02 13*)[cite: 465, 467, 473]. Obraz musi być archiwizowany przez 30 dni, a WIOŚ musi mieć zapewniony całodobowy dostęp online (współdzielony link/port)[cite: 469, 475].</li>" +
+                      "<li><strong>Separatory substancji ropopochodnych:</strong> Powierzchnia dedykowana pod odpady metalowe oraz zużyty sprzęt musi być nieprzepuszczalna (beton szczelny)[cite: 602, 2286]. Wody opadowe i roztopowe z tego obszaru muszą być zebrane systemem drenażu i oczyszczone w separatorach koalescencyjnych przed zrzutem[cite: 314, 602].</li>" +
+                      "<li><strong>Zamykane kontenery i pojemniki szczelne:</strong> Odpady zużytego sprzętu (16 02 13*, 16 02 14) muszą być bezwzględnie magazynowane w zamykanych, odpornych na warunki atmosferyczne kontenerach w celu eliminacji wymywania substancji niebezpiecznych[cite: 62, 314].</li>" +
+                      "<li><strong>Weryfikacja Przyłącza Energetycznego:</strong> Należy zweryfikować dostępną moc przyłącza[cite: 365]. Całodobowy system oświetlenia placu, infrastruktura kamer, ewentualne wagi najazdowe oraz maszyny do wstępnego sortowania wymagają stabilnego zasilania trójfazowego o odpowiednim przydziale kW[cite: 218, 471].</li>" +
+                      "</ul>"
+            },
+            {
+                title: "6. Interaktywny i Dynamiczny Kalkulator Kodów i Tonażu Odpadów (+)",
+                front: "<strong>Symulator limitów masowych z możliwością dynamicznego dodawania kodów (+):</strong><br><br>Otwórz tę fiszkę, aby zarządzać rocznym tonażem odpadowym w Mg. Możesz elastycznie dodawać dowolne kody i przypisywać im wagę. System automatycznie bada kryterium kompetencyjne Starostwa (< 3000 Mg/rok) oraz wylicza kwotę zabezpieczenia.",
+                back: "<p><strong>Kryterium art. 41 ust. 3 pkt 1 lit. d u.o.:</strong> Łączna roczna masa magazynowana powyżej 3000 Mg przenosi sprawę do Marszałka[cite: 756]. Dodawaj i edytuj wartości w tabeli poniżej:</p>" +
+                      "<div class='calculator-box' onclick='event.stopPropagation();'>" +
+                      "  <div class='calc-group-title'>1. Dynamiczny Tonaż Roczny Odpadów</div>" +
+                      "  <table class='card-table' style='margin:5px 0;'>" +
+                      "    <thead>" +
+                      "      <tr><th>Kod / Nazwa Odpadu</th><th>Ilość [Mg/rok]</th><th>Usuń</th></tr>" +
+                      "    </thead>" +
+                      "    <tbody id='codesTableBody'></tbody>" +
+                      "  </table>" +
+                      "  <button class='btn-add-item' onclick='addNewCodeRow()'>+ Dodaj nowy kod odpadu</button>" +
+                      "  <div class='calc-group-title' style='margin-top:10px;'>2. Magazynowanie Jednorazowe i Stawki (Art. 48a)</div>" +
+                      "  <div class='calc-row'><span>Maks. masa jednorazowa [Mg]:</span><input type='number' id='inMaxMasa' value='120' oninput='runCalculator()'></div>" +
+                      "  <div class='calc-row'><span>Uśredniona stawka [zł/Mg]:</span>" +
+                      "    <select id='inStawka' onchange='runCalculator()'>" +
+                      "      <option value='500' selected>500 zł (Standard)</option>" +
+                      "      <option value='1000'>1000 zł (Podwyższona)</option>" +
+                      "    </select>" +
+                      "  </div>" +
+                      "  <div class='calc-output-section'>" +
+                      "    <div class='calc-result' id='outSuma' style='font-size:0.9rem;'>Łączny tonaż roczny: 0 Mg</div>" +
+                      "    <div class='calc-result' id='outGwarancja' style='color:#0056b3; font-size:0.9rem;'>Szacowane zabezpieczenie: 0 zł</div>" +
+                      "    <div style='text-align:center; margin-top:5px;' id='outBadge'></div>" +
+                      "  </div>" +
+                      "</div>"
+            },
+            {
+                title: "7. Definicja i Rygor Prawny Limitów Masowych (Jednorazowo vs Rocznie)",
+                front: "<strong>Ustawowe rozgraniczenie pojęć tonażowych (Czego nie możemy przekroczyć):</strong><br><br>Czym z punktu widzenia kontroli WIOŚ i przepisów różni się 'Masa w tym samym czasie' od 'Masy rocznej' i jakie niosą konsekwencje formalne?",
+                back: "<ul>" +
+                      "<li><strong>Masa w tym samym czasie (Pojemność placu - limit jednorazowy):</strong> Określa chwilową, maksymalną ilość odpadów, jaka może znajdować się na placu 0,5 ha w **jednym, konkretnym momencie**[cite: 805, 873]. W żadnym dniu roku kontrola nie może wykazać hałd większych niż ten limit (art. 43 ust. 1 pkt 4 lit. b)[cite: 873, 2286]. **To od tej wartości wylicza się wysokość zabezpieczenia roszczeń (art. 48a)[cite: 999].** Zaniżenie jej obniża koszty gwarancji, ale dusi operacyjność placu.</li>" +
+                      "<li><strong>Masa w okresie roku (Przepustowość obrotowa - limit skumulowany):</strong> Łączna waga wszystkich odpadów, jakie mogą zostać przyjęte (wpisane do BDO) od 1 stycznia do 31 grudnia[cite: 805, 873]. Działa jak licznik. Po osiągnięciu limitu rocznego plac musi wstrzymać przyjęcia do końca roku, nawet jeśli bieżący stan magazynu wynosi zero.</li>" +
+                      "<li><strong>Próg Kompetencyjny (3000 Mg):</strong> Zgodnie z art. 41 ust. 3 pkt 1 lit. d przekroczenie łącznej masy **3000 Mg rocznie** bezwzględnie przenosi właściwość organu do Marszałka Województwa[cite: 756]. Utrzymanie wniosku poniżej tej wartości (np. 2950 Mg) gwarantuje uproszczone procedowanie u **Starosty Żyrardowskiego**[cite: 757].</li>" +
+                      "</ul>"
+            }
+        ];
+
+        let currentIdx = 0;
+        let masteredCards = JSON.parse(localStorage.getItem('masteredLutkowkaCardsV7')) || [];
+        let userNotesData = JSON.parse(localStorage.getItem('userNotesLutkowkaV7')) || {};
+        
+        let initialCosts = [
+            { id: 1, name: "Wizyjny monitoring stały (całodobowy zapis, integracja z WIOŚ)", val: "45000" },
+            { id: 2, name: "Utwardzenie gruntu i drogi dojazdowe dla transportu ciężkiego (0,5 ha)", val: "120000" },
+            { id: 3, name: "Kontenery zamykane i szczelne pojemniki / boksy na WEEE", val: "35000" },
+            { id: 4, name: "Separatory substancji ropopochodnych i osadniki drenażowe", val: "28000" },
+            { id: 5, name: "Zabezpieczenie przyłącza i weryfikacja mocy energetycznej", val: "15000" }
+        ];
+        let placCosts = JSON.parse(localStorage.getItem('savedPlacCostsV7')) || initialCosts;
+
+        let defaultCodes = [
+            { id: 1, code: "17 01 01 (Beton)", val: "200" },
+            { id: 2, code: "17 04 07 (Metale)", val: "400" },
+            { id: 3, code: "17 04 11 (Kable)", val: "1800" },
+            { id: 4, code: "16 02 13* (WEEE Niebezp.)", val: "150" },
+            { id: 5, code: "16 02 14 (WEEE Standard)", val: "300" }
+        ];
+        let dynamicCodes = JSON.parse(localStorage.getItem('savedDynamicCodesV7')) || defaultCodes;
+
+        function init() {
+            renderTOC();
+            showCard(0);
         }
 
-        document.getElementById('search').addEventListener('input', function(e) {
-            let filter = e.target.value.toLowerCase();
-            let categories = document.querySelectorAll('.category-item');
-
-            categories.forEach(cat => {
-                let items = cat.querySelectorAll('.file-item');
-                let hasVisibleFiles = false;
-
-                items.forEach(item => {
-                    if (item.textContent.toLowerCase().includes(filter)) {
-                        item.classList.remove('hidden');
-                        hasVisibleFiles = true;
-                    } else {
-                        item.classList.add('hidden');
-                    }
-                });
-
-                if (filter.length > 0) {
-                    if (hasVisibleFiles) {
-                        cat.classList.remove('hidden');
-                        cat.querySelector('.category-header').classList.add('active');
-                    } else {
-                        cat.classList.add('hidden');
-                    }
-                } else {
-                    cat.classList.remove('hidden');
-                    cat.querySelector('.category-header').classList.remove('active');
+        function renderTOC() {
+            const tocList = document.getElementById('tocList');
+            tocList.innerHTML = '';
+            flashcardsData.forEach((card, index) => {
+                const li = document.createElement('li');
+                li.className = 'toc-item';
+                if (masteredCards.includes(index)) {
+                    li.classList.add('done');
                 }
+                li.innerHTML = `<span>${index + 1}. ${card.title.split('.')[1] || card.title}</span> <span>${masteredCards.includes(index) ? '✓' : '...'}</span>`;
+                li.onclick = (e) => {
+                    e.stopPropagation();
+                    showCard(index);
+                };
+                tocList.appendChild(li);
             });
-        });
+        }
+
+        function showCard(index) {
+            currentIdx = index;
+            const card = document.getElementById('card');
+            card.classList.remove('flipped');
+            
+            document.getElementById('cardIdView').innerText = `Fiszka ${currentIdx + 1}/${flashcardsData.length}`;
+            document.getElementById('cardIdViewBack').innerText = `Fiszka ${currentIdx + 1}/${flashcardsData.length}`;
+            
+            document.getElementById('cardFrontContent').innerHTML = flashcardsData[currentIdx].front;
+            document.getElementById('cardBackContent').innerHTML = flashcardsData[currentIdx].back;
+
+            const textarea = document.getElementById('userNotes');
+            textarea.value = userNotesData[currentIdx] || '';
+
+            const statusBtn = document.getElementById('statusBtn');
+            if (masteredCards.includes(currentIdx)) {
+                statusBtn.innerText = "Opanowane ✓";
+                statusBtn.style.backgroundColor = "#e0e0e0";
+            } else {
+                statusBtn.innerText = "Oznacz jako opanowane";
+                statusBtn.style.backgroundColor = "var(--accent-bg)";
+            }
+
+            if (currentIdx === 3) {
+                setTimeout(renderCostsTable, 50);
+            }
+            if (currentIdx === 5) {
+                setTimeout(() => {
+                    renderCodesTable();
+                    loadSavedCalculatorInputs();
+                    runCalculator();
+                }, 50);
+            }
+        }
+
+        function flipCard() {
+            document.getElementById('card').classList.toggle('flipped');
+        }
+
+        function nextCard(event) {
+            event.stopPropagation();
+            if (currentIdx < flashcardsData.length - 1) {
+                showCard(currentIdx + 1);
+            } else {
+                showCard(0);
+            }
+        }
+
+        function prevCard(event) {
+            event.stopPropagation();
+            if (currentIdx > 0) {
+                showCard(currentIdx - 1);
+            } else {
+                showCard(flashcardsData.length - 1);
+            }
+        }
+
+        function toggleStatus(event) {
+            event.stopPropagation();
+            if (masteredCards.includes(currentIdx)) {
+                masteredCards = masteredCards.filter(id => id !== currentIdx);
+            } else {
+                masteredCards.push(currentIdx);
+            }
+            localStorage.setItem('masteredLutkowkaCardsV7', JSON.stringify(masteredCards));
+            renderTOC();
+            showCard(currentIdx);
+        }
+
+        function saveNote() {
+            const textarea = document.getElementById('userNotes');
+            userNotesData[currentIdx] = textarea.value;
+            localStorage.setItem('userNotesLutkowkaV7', JSON.stringify(userNotesData));
+        }
+
+        function toggleFlowDetails(stepIndex, event) {
+            event.stopPropagation(); // Blokuje obrót fiszki, rozwija tylko tekst instrukcji!
+            const detailsBlock = document.getElementById(`fd-${stepIndex}`);
+            const parentNode = detailsBlock.parentNode;
+            
+            if (detailsBlock.style.display === "block") {
+                detailsBlock.style.display = "none";
+                parentNode.classList.remove("active-step");
+            } else {
+                detailsBlock.style.display = "block";
+                parentNode.classList.add("active-step");
+            }
+        }
+
+        // KOSZTY (FISZKA 4)
+        function renderCostsTable() {
+            const tbody = document.getElementById('costsTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            
+            placCosts.forEach((cost, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="text" value="${cost.name}" oninput="updateCostRow(${index}, 'name', this.value)"></td>
+                    <td><input type="number" value="${cost.val}" oninput="updateCostRow(${index}, 'val', this.value)" style="text-align: right; font-weight: bold;"></td>
+                    <td style="text-align:center;"><button class="btn-delete-item" onclick="deleteCostRow(${index})">Usuń</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+            calculateTotalCost();
+        }
+
+        function updateCostRow(index, field, value) {
+            placCosts[index][field] = value;
+            localStorage.setItem('savedPlacCostsV7', JSON.stringify(placCosts));
+            if(field === 'val') {
+                calculateTotalCost();
+            }
+        }
+
+        function addNewCostRow() {
+            placCosts.push({ id: Date.now(), name: "Nowa pozycja kosztowa...", val: "0" });
+            localStorage.setItem('savedPlacCostsV7', JSON.stringify(placCosts));
+            renderCostsTable();
+        }
+
+        function deleteCostRow(index) {
+            placCosts.splice(index, 1);
+            localStorage.setItem('savedPlacCostsV7', JSON.stringify(placCosts));
+            renderCostsTable();
+        }
+
+        function calculateTotalCost() {
+            let total = 0;
+            placCosts.forEach(c => {
+                total += parseFloat(c.val) || 0;
+            });
+            const display = document.getElementById('totalCostDisplay');
+            if(display) {
+                display.innerText = `Suma ogólna nakładów: ${total.toLocaleString('pl-PL')} zł`;
+            }
+        }
+
+        // INTERAKTYWNA TABELA DYNAMICZNYCH KODÓW (FISZKA 5)
+        function renderCodesTable() {
+            const tbody = document.getElementById('codesTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            
+            dynamicCodes.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="text" value="${item.code}" oninput="updateCodeRow(${index}, 'code', this.value)"></td>
+                    <td><input type="number" value="${item.val}" oninput="updateCodeRow(${index}, 'val', this.value)" style="text-align: right; font-weight: bold;"></td>
+                    <td style="text-align:center;"><button class="btn-delete-item" onclick="deleteCodeRow(${index})">X</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateCodeRow(index, field, value) {
+            dynamicCodes[index][field] = value;
+            localStorage.setItem('savedDynamicCodesV7', JSON.stringify(dynamicCodes));
+            runCalculator();
+        }
+
+        function addNewCodeRow() {
+            dynamicCodes.push({ id: Date.now(), code: "Wpisz kod odpadu...", val: "0" });
+            localStorage.setItem('savedDynamicCodesV7', JSON.stringify(dynamicCodes));
+            renderCodesTable();
+            runCalculator();
+        }
+
+        function deleteCodeRow(index) {
+            dynamicCodes.splice(index, 1);
+            localStorage.setItem('savedDynamicCodesV7', JSON.stringify(dynamicCodes));
+            renderCodesTable();
+            runCalculator();
+        }
+
+        function runCalculator() {
+            let sumaRoczna = 0;
+            dynamicCodes.forEach(item => {
+                sumaRoczna += parseFloat(item.val) || 0;
+            });
+
+            const maxMasa = parseFloat(document.getElementById('inMaxMasa').value) || 0;
+            const stawka = parseFloat(document.getElementById('inStawka').value) || 0;
+
+            localStorage.setItem('savedCalcMetaV7', JSON.stringify({ maxMasa, stawka }));
+
+            const kwotaZabezpieczenia = maxMasa * stawka;
+
+            document.getElementById('outSuma').innerText = `Łączny tonaż roczny (z tabeli): ${sumaRoczna.toFixed(1)} Mg`;
+            document.getElementById('outGwarancja').innerText = `Szacowane zabezpieczenie (art. 48a): ${kwotaZabezpieczenia.toLocaleString('pl-PL')} zł`;
+
+            const badgeElement = document.getElementById('outBadge');
+            if (sumaRoczna >= 3000) {
+                document.getElementById('outSuma').style.color = 'var(--danger-color)';
+                badgeElement.innerHTML = "<span class='status-badge status-error'>Właściwość: MARSZAŁEK (Suma ≥ 3000 Mg)</span>";
+            } else {
+                document.getElementById('outSuma').style.color = 'var(--success-color)';
+                badgeElement.innerHTML = "<span class='status-badge status-ok'>Właściwość: STAROSTA</span>";
+            }
+        }
+
+        function loadSavedCalculatorInputs() {
+            const savedMeta = JSON.parse(localStorage.getItem('savedCalcMetaV7'));
+            if (savedMeta) {
+                if(document.getElementById('inMaxMasa')) document.getElementById('inMaxMasa').value = savedMeta.maxMasa;
+                if(document.getElementById('inStawka')) document.getElementById('inStawka').value = savedMeta.stawka;
+            }
+        }
+
+        window.onload = init;
     </script>
 </body>
 </html>

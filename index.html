@@ -168,7 +168,6 @@
         .card-content strong { font-weight: 700; color: #000; }
         .card-content code { background: #e8e8e8; padding: 2px 6px; font-size: 1.0rem; color: #c1121f; font-weight: bold; border-radius: 4px; font-family: monospace; }
 
-        /* SCHLUDNA REFORMATOWANA TABELA MOBILNA */
         .table-responsive {
             width: 100%;
             overflow-x: hidden;
@@ -202,7 +201,6 @@
             letter-spacing: 0.3px;
         }
         
-        /* Elastyczne proporcje kolumn, żeby nic się nie ściskało */
         .card-table th:nth-child(1), .card-table td:nth-child(1) { width: 52%; text-align: left; }
         .card-table th:nth-child(2), .card-table td:nth-child(2) { width: 33%; text-align: right; }
         .card-table th:nth-child(3), .card-table td:nth-child(3) { width: 15%; text-align: center; }
@@ -430,13 +428,13 @@
         const flashcardsData = [
             {
                 title: "1. Dane inwestycji- adres, powierzchnia, spółki",
-                front: "<strong>Kompleksowe dane wejściowe, analiza środowiskowa i skrócone rygory karne:</strong><br><br>Jak wygląda struktura podmiotowa w Lutkówce II, jak zintegrować zbieranie z przetwarzaniem i jakie rygory podmiotowe (KRK, odmowy, kary WIOŚ) determinują sukces wniosku?",
+                front: "<strong>Dane wejściowe i rygory prawne (Lutkówka II):</strong><br><br>Kluczowe informacje podmiotowe, wymogi środowiskowe oraz kryteria formalne warunkujące akceptację wniosku przez Starostę.",
                 back: "<ul>" +
-                      "<li><strong>Metadane i Teren:</strong> Wnioskodawcą jest <u>RM SYS Sp. z o.o.</u> (Grupa ENPROM). Właścicielem gruntów przyległych jest <u>ENPROM Sp. z o.o.</u> Procedura obejmuje plac o wielkości <strong>ok. 0,5 ha (5 000 m²)</strong> zlokalizowany w Lutkówce Drugiej (gmina Mszczonów). Cel: rozbudowa aktywnej decyzji na przetwarzanie o funkcję zbierania odpadów palnych i metalowych.</li>" +
-                      "<li><strong>Analiza Przeniesienia (art. 151 u.o.):</strong> Przeniesienie geograficzne starej decyzji na sąsiednią działkę jest **niemożliwe**. Ustawa wiąże decyzję z konkretną działką. Sukcesja z art. 151 służy wyłącznie zmianie podmiotu na tym samym terenie. Prawidłowa ścieżka to złożenie wniosku o zmianę/rozszerzenie granic posiadanej decyzji.</li>" +
-                      "<li><strong>Zbieżność Środowiskowa i KIP:</strong> Wykorzystujemy procedurę Karty Informacyjnej Przedsięwzięcia (KIP) u Burmistrza Mszczonowa w celu wydania nowej decyzji DUŚ na zbieranie odpadów palnych obok przetwarzania. Powołujemy się na poprzedni raport OOŚ, który wprost sankcjonował te kody, by uzyskać odstąpienie od ponownego, pełnego raportu.</li>" +
-                      "<li><strong>Zaświadczenia karne i oświadczenia (art. 42 ust. 3a i 3b):</strong> Do wniosku bezwzględnie dołączamy aktualne **zaświadczenia o niekaralności z KRK** za przestępstwa przeciwko środowisku dla samej spółki oraz wszystkich członków zarządu i prokurentów. Składane oświadczenia o braku cofniętych decyzji odpadowych w ostatnich 10 latach muszą zawierać klauzulę karną: <i>„Jestem świadomy odpowiedzialności karnej...”</i>.</li>" +
-                      "<li><strong>Bezwzględne Kryteria Odmowy (art. 46):</strong> Starosta wyda odmowę, jeśli w ciągu ostatnich 10 lat członkowi zarządu cofnięto analogiczne zezwolenie odpadowe lub nałożono 3-krotnie kary administracyjne przekraczające łącznie 150 000 zł, a także gdy obiekt nie przejdzie pomyślnie instalacyjnej kontroli WIOŚ/PSP.</li>" +
+                      "<li><strong>Podmioty i Teren:</strong> Wnioskodawca: RM SYS Sp. z o.o. | Właściciel sąsiednich gruntów: ENPROM Sp. z o.o. | Obszar: ok. 0,5 ha (5000 m²), Lutkówka Druga (gm. Mszczonów).</li>" +
+                      "<li><strong>Brak Przeniesienia (art. 151 u.o.):</strong> Decyzja odpadowa jest przypisana do konkretnej działki. Przeniesienie geograficzne na inny teren jest niemożliwe; właściwą ścieżką jest wniosek o rozszerzenie granic obecnej decyzji.</li>" +
+                      "<li><strong>Środowisko i KIP:</strong> Uzyskanie nowej decyzji DUŚ u Burmistrza Mszczonowa poprzez Kartę Informacyjną Przedsięwzięcia (KIP). Wykorzystujemy stary raport OOŚ w celu zwolnienia z ponownej pełnej procedury.</li>" +
+                      "<li><strong>KRK i Klauzule (art. 42):</strong> Wymagane aktualne zaświadczenia o niekaralności z KRK dla spółki, członków zarządu i prokurentów. Oświadczenia o braku cofniętych decyzji muszą zawierać pełną klauzulę karną.</li>" +
+                      "<li><strong>Odmowa Wydania (art. 46):</strong> Starosta odrzuci wniosek, jeśli w ciągu ostatnich 10 lat osobie z zarządzających cofnięto decyzję odpadową, nałożono 3x kary administracyjne (łącznie >150 tys. zł) lub plac nie przejdzie kontroli WIOŚ/PSP.</li>" +
                       "</ul>"
             },
             {
@@ -586,7 +584,7 @@
             },
             {
                 title: "4. Miejsca magazynowania",
-                front: "<strong>Inżynieria techniczna placu magazynowego:</strong><br><br>Jakie są bezwzględne kryteria techniczne dla magazynowania kabli, złomu i zużytego sprzętu elektrotechnicznego (monitoring, separatory, moc)?",
+                front: "<strong>Inżynieria techniczna placu magazynowego:</strong><br><br>Jakie are bezwzględne kryteria techniczne dla magazynowania kabli, złomu i zużytego sprzętu elektrotechnicznego (monitoring, separatory, moc)?",
                 back: "<ul>" +
                       "<li><strong>Wizyjny monitoring stały (Całodobowy):</strong> Zgodnie z art. 25 ust. 6a u.o. system kamer musi rejestrować obraz całego placu (0,5 ha) i magazynowanych odpadów palnych (kody 17 04 11, 16 02 13*). Obraz musi być archiwizowany przez 30 dni, a WIOŚ musi mieć zapewniony całodobowy dostęp online (współdzielony link/port).</li>" +
                       "<li><strong>Separatory substancji ropopochodnych:</strong> Powierzchnia dedykowana pod odpady metalowe oraz zużyty sprzęt musi być nieprzepuszczalna (beton szczelny). Wody opadowe i roztopowe z tego obszaru muszą być zebrane systemem drenażu i oczyszczone w separatorach koalescencyjnych przed zrzutem.</li>" +
@@ -736,7 +734,6 @@
             }
         }
 
-        // PARSER DO SEPARATORÓW TYSIĘCY DLA INPUTÓW
         function cleanAndParse(str) {
             let clean = String(str).replace(/\s+/g, '');
             return parseFloat(clean) || 0;
@@ -769,7 +766,6 @@
             input.setSelectionRange(cursorPosition, cursorPosition);
         }
 
-        // KOSZTY (FISZKA 3)
         function renderCostsTable() {
             const tbody = document.getElementById('costsTableBody');
             if(!tbody) return;
@@ -820,7 +816,6 @@
             }
         }
 
-        // INTERAKTYWNA TABELA DYNAMICZNYCH KODÓW (FISZKA 5)
         function renderCodesTable() {
             const tbody = document.getElementById('codesTableBody');
             if(!tbody) return;

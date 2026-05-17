@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strategia RM SYS: Lutkówka II - System Operacyjny</title>
+    <!-- Import czcionki Roboto wspierającej polskie znaki -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --bg-color: #ffffff;
@@ -16,21 +21,21 @@
         }
 
         body {
-            font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 15px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             -webkit-text-size-adjust: 100%;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         header {
             width: 100%;
-            max-width: 800px;
+            max-width: 640px;
             text-align: center;
             border-bottom: 3px solid var(--border-color);
             padding-bottom: 16px;
@@ -39,68 +44,65 @@
         }
 
         h1 { 
-            font-size: 1.45rem; 
+            font-size: 1.55rem; 
             margin: 0; 
             text-transform: uppercase; 
-            letter-spacing: 0.5px; 
+            letter-spacing: 0.3px; 
             line-height: 1.3; 
-            font-weight: 800;
+            font-weight: 900;
         }
         h2 { 
-            font-size: 1.05rem; 
+            font-size: 1.1rem; 
             margin: 8px 0 0 0; 
-            font-weight: 500; 
+            font-weight: 400; 
             color: #444; 
         }
 
         .table-of-contents {
             width: 100%;
-            max-width: 800px;
-            border: 2px solid var(--border-color);
-            padding: 15px;
+            max-width: 640px;
+            border: 3px solid var(--border-color);
+            padding: 16px;
             margin-bottom: 20px;
             box-sizing: border-box;
             background-color: var(--accent-bg);
-            box-shadow: 4px 4px 0px #000;
+            box-shadow: 5px 5px 0px #000;
+            border-radius: 6px;
         }
         .table-of-contents h3 { 
-            margin: 0 0 12px 0; 
-            font-size: 1.0rem; 
+            margin: 0 0 14px 0; 
+            font-size: 1.1rem; 
             text-transform: uppercase; 
             border-bottom: 2px solid #000; 
-            padding-bottom: 5px; 
+            padding-bottom: 6px; 
             font-weight: 700;
         }
         .toc-list { 
             list-style: none; 
             padding: 0; 
             margin: 0; 
-            display: grid; 
-            grid-template-columns: 1fr; 
-            gap: 8px; 
-        }
-        @media(min-width: 680px) { 
-            .toc-list { grid-template-columns: 1fr 1fr; gap: 10px; } 
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
         }
         .toc-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 14px;
+            padding: 12px 16px;
             border: 2px solid #000;
             background: #fff;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1.05rem;
             box-shadow: 2px 2px 0px #000;
-            border-radius: 5px;
-            font-weight: 600;
+            border-radius: 6px;
+            font-weight: 500;
         }
-        .toc-item:hover { background: #eee; }
-        .toc-item.done { text-decoration: line-through; color: #555; background: #e9ecef; font-style: italic; }
+        .toc-item:hover { background: #f1f3f5; }
 
         .flashcard-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 640px;
             perspective: 1200px;
             margin-bottom: 20px;
             box-sizing: border-box;
@@ -108,14 +110,15 @@
 
         .flashcard {
             width: 100%;
-            min-height: 560px;
-            border: 2px solid var(--border-color);
+            min-height: 580px;
+            border: 3px solid var(--border-color);
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.4s ease;
             cursor: pointer;
             box-sizing: border-box;
-            box-shadow: 5px 5px 0px #000;
+            box-shadow: 6px 6px 0px #000;
+            border-radius: 8px;
         }
 
         .flashcard.flipped {
@@ -134,6 +137,7 @@
             justify-content: space-between;
             background-color: var(--bg-color);
             overflow-y: auto;
+            border-radius: 5px;
         }
 
         .card-back {
@@ -142,85 +146,115 @@
         }
 
         .card-header {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 6px;
-            margin-bottom: 14px;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
-            font-weight: 800;
+            font-weight: 700;
             letter-spacing: 0.5px;
             color: #222;
         }
 
         .card-content {
-            font-size: 1.02rem;
-            line-height: 1.6;
+            font-size: 1.15rem;
+            line-height: 1.65;
             flex-grow: 1;
         }
-        .card-content ul { padding-left: 22px; margin: 10px 0; }
-        .card-content li { margin-bottom: 8px; }
+        .card-content ul { padding-left: 24px; margin: 12px 0; }
+        .card-content li { margin-bottom: 10px; }
         .card-content strong { font-weight: 700; color: #000; }
-        .card-content code { background: #e8e8e8; padding: 2px 6px; font-size: 0.9rem; color: #c1121f; font-weight: bold; border-radius: 4px; font-family: monospace; }
+        .card-content code { background: #e8e8e8; padding: 2px 6px; font-size: 1.0rem; color: #c1121f; font-weight: bold; border-radius: 4px; font-family: monospace; }
 
+        /* SCHLUDNA REFORMATOWANA TABELA MOBILNA */
         .table-responsive {
             width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin: 12px 0;
+            overflow-x: hidden;
+            margin: 14px 0;
             border: 2px solid #000;
-            border-radius: 4px;
+            border-radius: 6px;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
         }
         .card-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.92rem;
+            font-size: 1.05rem;
             background: #fff;
-            min-width: 450px;
-            table-layout: fixed;
         }
         .card-table th, .card-table td {
-            border: 1px solid #000;
-            padding: 10px 12px;
-            text-align: left;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #000;
+            padding: 12px 10px;
             vertical-align: middle;
             white-space: normal;
             word-break: break-word;
             overflow-wrap: break-word;
+            box-sizing: border-box;
         }
-        .card-table th:nth-child(1) { width: 55%; }
-        .card-table th:nth-child(2) { width: 30%; }
-        .card-table th:nth-child(3) { width: 15%; }
-
         .card-table th {
-            background-color: #f2f2f2;
-            font-weight: 800;
+            background-color: #f1f3f5;
+            border-bottom: 3px solid #000;
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
         }
-        .card-table input[type="text"], .card-table input[type="number"] {
+        
+        /* Elastyczne proporcje kolumn, żeby nic się nie ściskało */
+        .card-table th:nth-child(1), .card-table td:nth-child(1) { width: 52%; text-align: left; }
+        .card-table th:nth-child(2), .card-table td:nth-child(2) { width: 33%; text-align: right; }
+        .card-table th:nth-child(3), .card-table td:nth-child(3) { width: 15%; text-align: center; }
+
+        .card-table input[type="text"] {
             width: 100%;
             box-sizing: border-box;
-            border: 1px solid #777;
-            border-radius: 3px;
-            padding: 7px;
+            border: 1px dashed #999;
+            background: transparent;
+            padding: 6px;
             font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 600;
+            font-size: 1.05rem;
+            font-weight: 400;
+        }
+        .card-table input[type="text"]:focus {
+            border: 1px solid #000;
+            background: #fff;
+            outline: none;
+        }
+        .card-table .num-input-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+        .card-table input.clean-num-input {
+            width: 85%;
+            box-sizing: border-box;
+            border: 1px dashed #999;
+            background: transparent;
+            padding: 6px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-align: right;
+        }
+        .card-table input.clean-num-input:focus {
+            border: 1px solid #000;
+            background: #fff;
+            outline: none;
         }
 
         .btn-add-item {
             background: #fff;
             border: 2px solid #000;
-            padding: 10px 16px;
-            font-size: 0.9rem;
+            padding: 12px 16px;
+            font-size: 1.05rem;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 2px 2px 0px #000;
-            border-radius: 4px;
-            margin-top: 8px;
+            border-radius: 6px;
+            margin-top: 10px;
             font-family: inherit;
             width: 100%;
             box-sizing: border-box;
@@ -230,119 +264,119 @@
         .btn-delete-item {
             background: #fff;
             color: var(--danger-color);
-            border: 2px solid var(--danger-color);
-            padding: 5px 10px;
-            font-size: 0.85rem;
+            border: 1.5px solid var(--danger-color);
+            padding: 6px 8px;
+            font-size: 0.95rem;
             font-weight: bold;
             cursor: pointer;
             border-radius: 4px;
             font-family: inherit;
-            width: 100%;
-            text-align: center;
+            display: inline-block;
             box-sizing: border-box;
+            line-height: 1;
         }
         .btn-delete-item:hover { background: var(--danger-color); color: #fff; }
 
         .total-cost-badge {
             background: #fff;
             border: 2px solid #000;
-            padding: 12px;
-            font-size: 1.1rem;
-            font-weight: 800;
+            padding: 14px;
+            font-size: 1.25rem;
+            font-weight: 900;
             text-align: right;
-            margin-top: 12px;
+            margin-top: 14px;
             box-shadow: 3px 3px 0px #000;
             color: var(--blue-color);
+            border-radius: 4px;
         }
 
         .card-footer {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-align: center;
-            margin-top: 14px;
+            margin-top: 16px;
             border-top: 2px dashed var(--border-color);
-            padding-top: 8px;
+            padding-top: 10px;
             font-style: italic;
             color: #444;
             font-weight: 500;
         }
 
         .notes-section {
-            margin-top: 15px;
+            margin-top: 18px;
             border-top: 2px solid #000;
-            padding-top: 10px;
+            padding-top: 12px;
             width: 100%;
         }
         .notes-section label {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
             text-transform: uppercase;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             color: #333;
         }
         .notes-section textarea {
             width: 100%;
-            height: 55px;
+            height: 60px;
             box-sizing: border-box;
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             font-family: inherit;
-            font-size: 0.95rem;
-            padding: 6px;
+            font-size: 1.05rem;
+            padding: 8px;
             resize: vertical;
             background: #fff;
-            border-radius: 4px;
+            border-radius: 6px;
         }
 
         .flow-container { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 10px 0; width: 100%; }
-        .flow-step { width: 100%; border: 2px solid #000; background: #fff; padding: 12px 14px; font-size: 0.92rem; border-radius: 5px; box-shadow: 2px 2px 0px #000; box-sizing: border-box; }
+        .flow-step { width: 100%; border: 2px solid #000; background: #fff; padding: 14px; font-size: 1.05rem; border-radius: 6px; box-shadow: 2px 2px 0px #000; box-sizing: border-box; }
         .flow-step.clickable-step { cursor: pointer; }
-        .flow-step.clickable-step:hover { background: #f1f3f5; border-color: var(--blue-color); }
-        .flow-step strong { display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; font-size: 0.92rem; color: var(--blue-color); border-bottom: 2px solid #eee; padding-bottom: 5px; gap: 5px; font-weight: 700; }
-        .flow-step strong::after { content: "▼ Szczegóły"; font-size: 0.75rem; color: #007bff; font-weight: 600; text-transform: none; flex-shrink: 0; }
+        .flow-step.clickable-step:hover { background: #f8f9fa; border-color: var(--blue-color); }
+        .flow-step strong { display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; font-size: 1.0rem; color: var(--blue-color); border-bottom: 2px solid #eee; padding-bottom: 6px; gap: 5px; font-weight: 700; }
+        .flow-step strong::after { content: "▼ Szczegóły"; font-size: 0.8rem; color: #007bff; font-weight: 600; text-transform: none; flex-shrink: 0; }
         .flow-step.active-step strong::after { content: "▲ Zwiń"; color: var(--danger-color); }
         
-        .flow-details { display: none; margin-top: 10px; padding: 8px; background: #fafafa; border-left: 4px solid var(--blue-color); font-size: 0.92rem; color: #111; border-top: 1px solid #eee; }
-        .flow-details h4 { margin: 10px 0 6px 0; font-size: 0.9rem; text-transform: uppercase; color: #222; font-weight: 700; }
+        .flow-details { display: none; margin-top: 12px; padding: 10px; background: #fafafa; border-left: 4px solid var(--blue-color); font-size: 1.05rem; color: #111; border-top: 1px solid #eee; }
+        .flow-details h4 { margin: 12px 0 6px 0; font-size: 1.0rem; text-transform: uppercase; color: #222; font-weight: 700; }
         
         .document-box {
             background-color: #fff;
             border: 2px solid #000;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 4px;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
             box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
         }
         .document-box-title {
-            font-weight: 800;
+            font-weight: 900;
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #1b4d3e;
             border-bottom: 1px solid #1b4d3e;
             padding-bottom: 4px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             letter-spacing: 0.3px;
         }
 
-        .flow-details ul { padding-left: 18px; margin: 6px 0; }
-        .flow-details li { margin-bottom: 5px; }
-        .flow-step em { display: inline-block; margin-top: 6px; font-size: 0.8rem; color: var(--danger-color); font-weight: bold; background: #fff; border: 1px dashed #ccc; padding: 3px 6px; border-radius: 4px; width: fit-content; }
-        .flow-arrow { font-size: 1.2rem; font-weight: bold; line-height: 1; margin: 2px 0; color: #000; }
+        .flow-details ul { padding-left: 20px; margin: 8px 0; }
+        .flow-details li { margin-bottom: 6px; }
+        .flow-step em { display: inline-block; margin-top: 8px; font-size: 0.85rem; color: var(--danger-color); font-weight: bold; background: #fff; border: 1px dashed #ccc; padding: 4px 8px; border-radius: 4px; width: fit-content; }
+        .flow-arrow { font-size: 1.4rem; font-weight: bold; line-height: 1; margin: 2px 0; color: #000; }
 
-        .calculator-box { background: #fff; border: 2px solid #000; padding: 12px; margin-top: 8px; border-radius: 5px; box-shadow: 3px 3px 0px #000; box-sizing: border-box; width: 100%; }
-        .calc-group-title { font-size: 0.9rem; text-transform: uppercase; font-weight: 800; margin-bottom: 8px; border-bottom: 2px solid #000; padding-bottom: 4px; color: #222; }
-        .calc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.95rem; gap: 12px; }
-        .calc-row span { font-weight: 600; }
-        .calc-row input, .calc-row select { width: 120px; padding: 6px; border: 2px solid #000; text-align: right; font-weight: bold; font-family: inherit; font-size: 0.95rem; border-radius: 4px; flex-shrink: 0; }
-        .calc-output-section { margin-top: 10px; padding-top: 8px; border-top: 2px dashed #000; }
-        .calc-result { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
-        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; color: #fff; font-size: 0.8rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; }
+        .calculator-box { background: #fff; border: 2px solid #000; padding: 14px; margin-top: 10px; border-radius: 6px; box-shadow: 3px 3px 0px #000; box-sizing: border-box; width: 100%; }
+        .calc-group-title { font-size: 1.0rem; text-transform: uppercase; font-weight: 900; margin-bottom: 10px; border-bottom: 2px solid #000; padding-bottom: 6px; color: #222; }
+        .calc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 1.05rem; gap: 12px; }
+        .calc-row span { font-weight: 700; }
+        .calc-row input, .calc-row select { width: 130px; padding: 8px; border: 2px solid #000; text-align: right; font-weight: bold; font-family: inherit; font-size: 1.05rem; border-radius: 6px; flex-shrink: 0; }
+        .calc-output-section { margin-top: 12px; padding-top: 10px; border-top: 2px dashed #000; }
+        .calc-result { font-size: 1.15rem; font-weight: 900; margin-bottom: 6px; }
+        .status-badge { display: inline-block; padding: 6px 10px; border-radius: 4px; color: #fff; font-size: 0.85rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; }
         .status-ok { background-color: #1b4d3e; }
         .status-error { background-color: var(--danger-color); }
 
-        .controls { width: 100%; max-width: 800px; display: flex; justify-content: space-between; gap: 10px; box-sizing: border-box; }
-        button { flex: 1; background-color: var(--bg-color); color: var(--text-color); border: 2px solid var(--border-color); padding: 12px; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; font-weight: bold; box-shadow: 3px 3px 0px #000; touch-action: manipulation; font-family: inherit; text-align: center; border-radius: 4px; }
-        button:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0px #000; }
-        button.btn-status { background-color: var(--accent-bg); }
+        .controls { width: 100%; max-width: 640px; display: flex; justify-content: space-between; gap: 14px; box-sizing: border-box; }
+        button { flex: 1; background-color: var(--bg-color); color: var(--text-color); border: 3px solid var(--border-color); padding: 14px; font-size: 1.05rem; cursor: pointer; text-transform: uppercase; font-weight: 900; box-shadow: 4px 4px 0px #000; touch-action: manipulation; font-family: inherit; text-align: center; border-radius: 6px; }
+        button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
     </style>
 </head>
 <body>
@@ -389,7 +423,6 @@
 
     <div class="controls">
         <button onclick="prevCard(event)">Poprzednia</button>
-        <button class="btn-status" onclick="toggleStatus(event)" id="statusBtn">Opanowane</button>
         <button onclick="nextCard(event)">Następna</button>
     </div>
 
@@ -406,7 +439,6 @@
                       "<li><strong>Bezwzględne Kryteria Odmowy (art. 46):</strong> Starosta wyda odmowę, jeśli w ciągu ostatnich 10 lat członkowi zarządu cofnięto analogiczne zezwolenie odpadowe lub nałożono 3-krotnie kary administracyjne przekraczające łącznie 150 000 zł, a także gdy obiekt nie przejdzie pomyślnie instalacyjnej kontroli WIOŚ/PSP.</li>" +
                       "</ul>"
             },
-    
             {
                 title: "2. Ścieżka dojścia- schemat",
                 front: "<strong>Praktyczny przewodnik krok po kroku z boksami dokumentów:</strong><br><br>Co dokładnie musisz robić po kolei, jak wykorzystać stary raport OOŚ oraz jakie pełne spisy dokumentów (w boksach) musisz dołączyć do wniosków w Mszczonowie i Żyrardowie?",
@@ -464,7 +496,7 @@
                       "        <div class='document-box-title'>[ OBLIGATORYJNE DOKUMENTY I RAPORTY ]</div>" +
                       "        <ul>" +
                       "          <li>**Oryginalny wypis i wyrys z Miejscowego Planu Zagospodarowania Przestrzennego (MPZP)**.</li>" +
-                      "          <li>W przypadku braku planu: **Ostateczna Decyzja o Warunkach Zabudowy (WZ)**.</li>" +
+                      "          <li>W przypadku braku planu: **Ostateczna Decyzja o Warunkach Zawudowy (WZ)**.</li>" +
                       "          <li>Dowód wniesienia opłaty skarbowej za wypis/decyzję WZ.</li>" +
                       "        </ul>" +
                       "      </div>" +
@@ -536,14 +568,14 @@
                       "</div>"
             },
             {
-                title: "3. Dynamiczna Struktura Kosztów Inwestycji (+)",
+                title: "3. Koszty ogólne inwestycji (+)",
                 front: "<strong>Budżetowanie nakładów dla strefy magazynowej 0,5 ha:</strong><br><br>Otwórz tę fiszkę, aby zarządzać kosztami operacyjnymi. Możesz swobodnie dodawać własne pozycje za pomocą przycisku z plusem (+), a system automatycznie obliczy sumę ogólną.",
-                back: "<p>Wprowadź wartości kosztów. Wszystkie dane, w tym nowo dodane pozycje, zapisują się automatycznie w Twojej przeglądarce:</p>" +
+                back: "<p>Wprowadź wartości kosztów. Wszystkie dane, w tym nowo dodane pozycje, zapisują się automatycznie i posiadają separator tysięcy:</p>" +
                       "<div onclick='event.stopPropagation();'>" +
                       "  <div class='table-responsive'>" +
                       "    <table class='card-table' id='dynamicCostsTable'>" +
                       "      <thead>" +
-                      "        <tr><th>Infrastruktura / Wymóg Formalny</th><th>Koszt [zł]</th><th>Akcja</th></tr>" +
+                      "        <tr><th>Infrastruktura / Wymóg</th><th>Koszt [zł]</th><th>Akcja</th></tr>" +
                       "      </thead>" +
                       "      <tbody id='costsTableBody'></tbody>" +
                       "    </table>" +
@@ -565,20 +597,20 @@
             {
                 title: "5. Kody odpadów i limity (+)",
                 front: "<strong>Symulator limitów masowych z możliwością dynamicznego dodawania kodów (+):</strong><br><br>Otwórz tę fiszkę, aby zarządzać rocznym tonażem odpadowym w Mg. Możesz elastycznie dodawać dowolne kody i przypisywać im wagę. System automatycznie bada kryterium kompetencyjne Starostwa (&lt; 3000 Mg/rok) oraz wylicza kwotę zabezpieczenia.",
-                back: "<p><strong>Kryterium art. 41 ust. 3 pkt 1 lit. d u.o.:</strong> Łączna roczna masa magazynowana powyżej 3 000 Mg przenosi sprawę do Marszałka. Dodawaj i edytuj wartości w przejrzystej tabeli poniżej:</p>" +
+                back: "<p><strong>Kryterium art. 41 ust. 3 pkt 1 lit. d u.o.:</strong> Łączna roczna masa magazynowana powyżej 3 000 Mg przenosi sprawę do Marszałka. Wszystkie nazwy zawijają się automatycznie:</p>" +
                       "<div class='calculator-box' onclick='event.stopPropagation();'>" +
                       "  <div class='calc-group-title'>1. Dynamiczny Tonaż Roczny Odpadów</div>" +
                       "  <div class='table-responsive'>" +
                       "    <table class='card-table'>" +
                       "      <thead>" +
-                      "        <tr><th>Kod / Pełna Nazwa Odpadu</th><th>Ilość [Mg/rok]</th><th>Usuń</th></tr>" +
+                      "        <tr><th>Kod / Pełna Nazwa Odpadu</th><th>Ilość [Mg]</th><th>Usuń</th></tr>" +
                       "      </thead>" +
                       "      <tbody id='codesTableBody'></tbody>" +
                       "    </table>" +
                       "  </div>" +
                       "  <button class='btn-add-item' onclick='addNewCodeRow()'>+ Dodaj nowy kod odpadu</button>" +
                       "  <div class='calc-group-title' style='margin-top:15px;'>2. Magazynowanie Jednorazowe i Stawki (Art. 48a)</div>" +
-                      "  <div class='calc-row'><span>Maks. masa jednorazowa [Mg]:</span><input type='number' id='inMaxMasa' value='120' oninput='runCalculator()'></div>" +
+                      "  <div class='calc-row'><span>Maks. masa jednorazowa [Mg]:</span><input type='text' id='inMaxMasa' value='120' oninput='formatAndRunCalc(this)'></div>" +
                       "  <div class='calc-row'><span>Uśredniona stawka [zł/Mg]:</span>" +
                       "    <select id='inStawka' onchange='runCalculator()'>" +
                       "      <option value='500' selected>500 zł (Standard)</option>" +
@@ -595,26 +627,26 @@
         ];
 
         let currentIdx = 0;
-        let masteredCards = JSON.parse(localStorage.getItem('masteredLutkowkaCardsV7')) || [];
-        let userNotesData = JSON.parse(localStorage.getItem('userNotesLutkowkaV7')) || {};
+        let masteredCards = JSON.parse(localStorage.getItem('masteredLutkowkaCardsV8')) || [];
+        let userNotesData = JSON.parse(localStorage.getItem('userNotesLutkowkaV8')) || {};
         
         let initialCosts = [
-            { id: 1, name: "Wizyjny monitoring stały (całodobowy zapis, integracja z WIOŚ)", val: "45000" },
-            { id: 2, name: "Utwardzenie gruntu i drogi dojazdowe dla transportu ciężkiego (0,5 ha)", val: "120000" },
-            { id: 3, name: "Kontenery zamykane i szczelne pojemniki / boksy na WEEE", val: "35000" },
-            { id: 4, name: "Separatory substancji ropopochodnych i osadniki drenażowe", val: "28000" },
-            { id: 5, name: "Zabezpieczenie przyłącza i weryfikacja mocy energetycznej", val: "15000" }
+            { id: 1, name: "Wizyjny monitoring stały (całodobowy zapis, integracja z WIOŚ)", val: 45000 },
+            { id: 2, name: "Utwardzenie gruntu i drogi dojazdowe dla transportu ciężkiego (0,5 ha)", val: 120000 },
+            { id: 3, name: "Kontenery zamykane i szczelne pojemniki / boksy na WEEE", val: 35000 },
+            { id: 4, name: "Separatory substancji ropopochodnych i osadniki drenażowe", val: 28000 },
+            { id: 5, name: "Zabezpieczenie przyłącza i weryfikacja mocy energetycznej", val: 15000 }
         ];
-        let placCosts = JSON.parse(localStorage.getItem('savedPlacCostsV7')) || initialCosts;
+        let placCosts = JSON.parse(localStorage.getItem('savedPlacCostsV8')) || initialCosts;
 
         let defaultCodes = [
-            { id: 1, code: "17 01 01 (Odpady z betonu oraz gruz betonowy z rozbiórek i remontów)", val: "200" },
-            { id: 2, code: "17 04 07 (Mieszaniny metali i złomu konstrukcyjnego)", val: "400" },
-            { id: 3, code: "17 04 11 (Kable i przewody elektroenergetyczne, miedziane, aluminiowe)", val: "1800" },
-            { id: 4, code: "16 02 13* (Zużyte urządzenia zawierające niebezpieczne elementy - WEEE niebezpieczne)", val: "150" },
-            { id: 5, code: "16 02 14 (Zużyte urządzenia inne niż wymienione w 16 02 13 - WEEE standard)", val: "300" }
+            { id: 1, code: "17 01 01 (Odpady z betonu oraz gruz betonowy z rozbiórek i remontów)", val: 200 },
+            { id: 2, code: "17 04 07 (Mieszaniny metali i złomu konstrukcyjnego)", val: 400 },
+            { id: 3, code: "17 04 11 (Kable i przewody elektroenergetyczne, miedziane, aluminiowe)", val: 1800 },
+            { id: 4, code: "16 02 13* (Zużyte urządzenia zawierające niebezpieczne elementy - WEEE niebezpieczne)", val: 150 },
+            { id: 5, code: "16 02 14 (Zużyte urządzenia inne niż wymienione w 16 02 13 - WEEE standard)", val: 300 }
         ];
-        let dynamicCodes = JSON.parse(localStorage.getItem('savedDynamicCodesV7')) || defaultCodes;
+        let dynamicCodes = JSON.parse(localStorage.getItem('savedDynamicCodesV8')) || defaultCodes;
 
         function init() {
             renderTOC();
@@ -627,10 +659,7 @@
             flashcardsData.forEach((card, index) => {
                 const li = document.createElement('li');
                 li.className = 'toc-item';
-                if (masteredCards.includes(index)) {
-                    li.classList.add('done');
-                }
-                li.innerHTML = `<span>${index + 1}. ${card.title.split('.')[1] || card.title}</span> <span>${masteredCards.includes(index) ? '✓' : '...'}</span>`;
+                li.innerHTML = `<span>${index + 1}. ${card.title.split('.')[1] || card.title}</span> <span>➔</span>`;
                 li.onclick = (e) => {
                     e.stopPropagation();
                     showCard(index);
@@ -652,15 +681,6 @@
 
             const textarea = document.getElementById('userNotes');
             textarea.value = userNotesData[currentIdx] || '';
-
-            const statusBtn = document.getElementById('statusBtn');
-            if (masteredCards.includes(currentIdx)) {
-                statusBtn.innerText = "Opanowane ✓";
-                statusBtn.style.backgroundColor = "#e0e0e0";
-            } else {
-                statusBtn.innerText = "Oznacz jako opanowane";
-                statusBtn.style.backgroundColor = "var(--accent-bg)";
-            }
 
             if (currentIdx === 2) {
                 setTimeout(renderCostsTable, 50);
@@ -696,22 +716,10 @@
             }
         }
 
-        function toggleStatus(event) {
-            event.stopPropagation();
-            if (masteredCards.includes(currentIdx)) {
-                masteredCards = masteredCards.filter(id => id !== currentIdx);
-            } else {
-                masteredCards.push(currentIdx);
-            }
-            localStorage.setItem('masteredLutkowkaCardsV7', JSON.stringify(masteredCards));
-            renderTOC();
-            showCard(currentIdx);
-        }
-
         function saveNote() {
             const textarea = document.getElementById('userNotes');
             userNotesData[currentIdx] = textarea.value;
-            localStorage.setItem('userNotesLutkowkaV7', JSON.stringify(userNotesData));
+            localStorage.setItem('userNotesLutkowkaV8', JSON.stringify(userNotesData));
         }
 
         function toggleFlowDetails(stepIndex, event) {
@@ -728,6 +736,39 @@
             }
         }
 
+        // PARSER DO SEPARATORÓW TYSIĘCY DLA INPUTÓW
+        function cleanAndParse(str) {
+            let clean = String(str).replace(/\s+/g, '');
+            return parseFloat(clean) || 0;
+        }
+
+        function formatNumberWithSpaces(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+
+        function handleInputFormatting(input, index, type, field) {
+            let cursorPosition = input.selectionStart;
+            let originalLength = input.value.length;
+            
+            let rawVal = cleanAndParse(input.value);
+            
+            if (type === 'cost') {
+                placCosts[index][field] = rawVal;
+                localStorage.setItem('savedPlacCostsV8', JSON.stringify(placCosts));
+                calculateTotalCost();
+            } else if (type === 'code') {
+                dynamicCodes[index][field] = rawVal;
+                localStorage.setItem('savedDynamicCodesV8', JSON.stringify(dynamicCodes));
+                runCalculator();
+            }
+
+            input.value = formatNumberWithSpaces(rawVal);
+            
+            let newLength = input.value.length;
+            cursorPosition = cursorPosition + (newLength - originalLength);
+            input.setSelectionRange(cursorPosition, cursorPosition);
+        }
+
         // KOSZTY (FISZKA 3)
         function renderCostsTable() {
             const tbody = document.getElementById('costsTableBody');
@@ -737,32 +778,34 @@
             placCosts.forEach((cost, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><input type="text" value="${cost.name}" oninput="updateCostRow(${index}, 'name', this.value)"></td>
-                    <td><input type="number" value="${cost.val}" oninput="updateCostRow(${index}, 'val', this.value)" style="text-align: right; font-weight: bold;"></td>
-                    <td style="text-align:center;"><button class="btn-delete-item" onclick="deleteCostRow(${index})">Usuń</button></td>
+                    <td><input type="text" value="${cost.name}" oninput="updateCostRowName(${index}, this.value)"></td>
+                    <td>
+                        <div class="num-input-wrapper">
+                            <input type="text" class="clean-num-input" value="${formatNumberWithSpaces(cost.val)}" oninput="handleInputFormatting(this, ${index}, 'cost', 'val')">
+                            <span style="font-weight:700; font-size:0.95rem;">zł</span>
+                        </div>
+                    </td>
+                    <td style="text-align:center;"><button class="btn-delete-item" onclick="deleteCostRow(${index})">✕</button></td>
                 `;
                 tbody.appendChild(tr);
             });
             calculateTotalCost();
         }
 
-        function updateCostRow(index, field, value) {
-            placCosts[index][field] = value;
-            localStorage.setItem('savedPlacCostsV7', JSON.stringify(placCosts));
-            if(field === 'val') {
-                calculateTotalCost();
-            }
+        function updateCostRowName(index, value) {
+            placCosts[index].name = value;
+            localStorage.setItem('savedPlacCostsV8', JSON.stringify(placCosts));
         }
 
         function addNewCostRow() {
-            placCosts.push({ id: Date.now(), name: "Nowa pozycja kosztowa...", val: "0" });
-            localStorage.setItem('savedPlacCostsV7', JSON.stringify(placCosts));
+            placCosts.push({ id: Date.now(), name: "Nowa pozycja kosztowa...", val: 0 });
+            localStorage.setItem('savedPlacCostsV8', JSON.stringify(placCosts));
             renderCostsTable();
         }
 
         function deleteCostRow(index) {
             placCosts.splice(index, 1);
-            localStorage.setItem('savedPlacCostsV7', JSON.stringify(placCosts));
+            localStorage.setItem('savedPlacCostsV8', JSON.stringify(placCosts));
             renderCostsTable();
         }
 
@@ -773,7 +816,7 @@
             });
             const display = document.getElementById('totalCostDisplay');
             if(display) {
-                display.innerText = `Suma ogólna nakładów: ${total.toLocaleString('pl-PL')} zł`;
+                display.innerText = `Suma ogólna nakładów: ${formatNumberWithSpaces(total)} zł`;
             }
         }
 
@@ -786,31 +829,45 @@
             dynamicCodes.forEach((item, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><input type="text" value="${item.code}" oninput="updateCodeRow(${index}, 'code', this.value)"></td>
-                    <td><input type="number" value="${item.val}" oninput="updateCodeRow(${index}, 'val', this.value)" style="text-align: right; font-weight: bold;"></td>
-                    <td style="text-align:center;"><button class="btn-delete-item" onclick="deleteCodeRow(${index})">X</button></td>
+                    <td><input type="text" value="${item.code}" oninput="updateCodeRowName(${index}, this.value)"></td>
+                    <td>
+                        <div class="num-input-wrapper">
+                            <input type="text" class="clean-num-input" value="${formatNumberWithSpaces(item.val)}" oninput="handleInputFormatting(this, ${index}, 'code', 'val')">
+                        </div>
+                    </td>
+                    <td style="text-align:center;"><button class="btn-delete-item" onclick="deleteCodeRow(${index})">✕</button></td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        function updateCodeRow(index, field, value) {
-            dynamicCodes[index][field] = value;
-            localStorage.setItem('savedDynamicCodesV7', JSON.stringify(dynamicCodes));
-            runCalculator();
+        function updateCodeRowName(index, value) {
+            dynamicCodes[index].code = value;
+            localStorage.setItem('savedDynamicCodesV8', JSON.stringify(dynamicCodes));
         }
 
         function addNewCodeRow() {
-            dynamicCodes.push({ id: Date.now(), code: "Wpisz nowy kod i nazwę odpadu...", val: "0" });
-            localStorage.setItem('savedDynamicCodesV7', JSON.stringify(dynamicCodes));
+            dynamicCodes.push({ id: Date.now(), code: "Wpisz nowy kod i nazwę odpadu...", val: 0 });
+            localStorage.setItem('savedDynamicCodesV8', JSON.stringify(dynamicCodes));
             renderCodesTable();
             runCalculator();
         }
 
         function deleteCodeRow(index) {
             dynamicCodes.splice(index, 1);
-            localStorage.setItem('savedDynamicCodesV7', JSON.stringify(dynamicCodes));
+            localStorage.setItem('savedDynamicCodesV8', JSON.stringify(dynamicCodes));
             renderCodesTable();
+            runCalculator();
+        }
+
+        function formatAndRunCalc(input) {
+            let cursorPosition = input.selectionStart;
+            let originalLength = input.value.length;
+            let raw = cleanAndParse(input.value);
+            input.value = formatNumberWithSpaces(raw);
+            let newLength = input.value.length;
+            cursorPosition = cursorPosition + (newLength - originalLength);
+            input.setSelectionRange(cursorPosition, cursorPosition);
             runCalculator();
         }
 
@@ -820,25 +877,26 @@
                 sumaRoczna += parseFloat(item.val) || 0;
             });
 
-            const maxMasa = parseFloat(document.getElementById('inMaxMasa').value) || 0;
+            const maxMasaInput = document.getElementById('inMaxMasa');
+            const maxMasa = maxMasaInput ? cleanAndParse(maxMasaInput.value) : 0;
             const stawka = parseFloat(document.getElementById('inStawka').value) || 0;
 
-            localStorage.setItem('savedCalcMetaV7', JSON.stringify({ maxMasa, stawka }));
+            localStorage.setItem('savedCalcMetaV8', JSON.stringify({ maxMasa, stawka }));
 
             const kwotaZabezpieczenia = maxMasa * stawka;
 
             if(document.getElementById('outSuma')) {
-                document.getElementById('outSuma').innerText = `Łączny tonaż roczny (z tabeli): ${sumaRoczna.toLocaleString('pl-PL')} Mg`;
+                document.getElementById('outSuma').innerText = `Łączny tonaż roczny (z tabeli): ${formatNumberWithSpaces(sumaRoczna)} Mg`;
             }
             if(document.getElementById('outGwarancja')) {
-                document.getElementById('outGwarancja').innerText = `Szacowane zabezpieczenie (art. 48a): ${kwotaZabezpieczenia.toLocaleString('pl-PL')} zł`;
+                document.getElementById('outGwarancja').innerText = `Szacowane zabezpieczenie (art. 48a): ${formatNumberWithSpaces(kwotaZabezpieczenia)} zł`;
             }
 
             const badgeElement = document.getElementById('outBadge');
             if(badgeElement) {
                 if (sumaRoczna >= 3000) {
                     document.getElementById('outSuma').style.color = 'var(--danger-color)';
-                    badgeElement.innerHTML = "<span class='status-badge status-error'>Właściwość: MARSZAŁEK (Suma ≥ " + (3000).toLocaleString('pl-PL') + " Mg)</span>";
+                    badgeElement.innerHTML = "<span class='status-badge status-error'>Właściwość: MARSZAŁEK (Suma ≥ " + formatNumberWithSpaces(3000) + " Mg)</span>";
                 } else {
                     document.getElementById('outSuma').style.color = 'var(--success-color)';
                     badgeElement.innerHTML = "<span class='status-badge status-ok'>Właściwość: STAROSTA</span>";
@@ -847,9 +905,9 @@
         }
 
         function loadSavedCalculatorInputs() {
-            const savedMeta = JSON.parse(localStorage.getItem('savedCalcMetaV7'));
+            const savedMeta = JSON.parse(localStorage.getItem('savedCalcMetaV8'));
             if (savedMeta) {
-                if(document.getElementById('inMaxMasa')) document.getElementById('inMaxMasa').value = savedMeta.maxMasa;
+                if(document.getElementById('inMaxMasa')) document.getElementById('inMaxMasa').value = formatNumberWithSpaces(savedMeta.maxMasa);
                 if(document.getElementById('inStawka')) document.getElementById('inStawka').value = savedMeta.stawka;
             }
         }
